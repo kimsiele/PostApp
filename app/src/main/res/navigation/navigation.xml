@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/postList">
+
+    <fragment
+        android:id="@+id/postList"
+        android:name="com.sielee.postapp.PostList"
+        android:label="Posts List"
+        tools:layout="@layout/fragment_post_list">
+        <action
+            android:id="@+id/action_postList_to_postNew"
+            app:destination="@id/postNew" />
+    </fragment>
+    <fragment
+        android:id="@+id/postNew"
+        android:name="com.sielee.postapp.PostNew"
+        android:label="New Post"
+        tools:layout="@layout/fragment_post_new" >
+        <action
+            android:id="@+id/action_postNew_to_postList"
+            app:destination="@id/postList" >
+            <argument android:name="id" app:argType="integer"/>
+            <argument android:name="userId" app:argType="integer"/>
+            <argument app:argType="string" android:name="title"/>
+            <argument android:name="body" app:argType="string"/>
+
+        </action>
+    </fragment>
+</navigation>

@@ -23,7 +23,7 @@
             android:id="@+id/edUserId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="UserId"
+            android:hint="@string/hint_user_id"
             android:inputType="number"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -41,7 +41,7 @@
             android:id="@+id/edTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Title"
+            android:hint="@string/hint_title"
             android:inputType="text"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -59,7 +59,7 @@
             android:id="@+id/edBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Body"
+            android:hint="@string/hint_body"
             android:inputType="textMultiLine"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -68,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
-        android:text="POST"
+        android:text="@string/btn_txt_post"
         app:cornerRadius="10dp"
         android:paddingEnd="15dp"
         android:paddingStart="15dp"
@@ -77,5 +77,16 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
+
+    <ProgressBar
+        android:id="@+id/pbPosting"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/btnPost"
+        app:layout_constraintStart_toStartOf="@+id/btnPost"
+        app:layout_constraintTop_toBottomOf="@+id/btnPost" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

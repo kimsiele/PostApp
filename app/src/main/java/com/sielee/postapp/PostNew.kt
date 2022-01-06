@@ -22,8 +22,8 @@ class PostNew : Fragment() {
     ): View? {
         binding = FragmentPostNewBinding.inflate(inflater, container, false)
 
-
         binding.btnPost.setOnClickListener {
+            binding.pbPosting.visibility = View.VISIBLE
             val newPost = Post(
                 binding.edUserId.text.toString().toInt(),
                 binding.edTitle.text.toString(),
@@ -31,24 +31,20 @@ class PostNew : Fragment() {
             )
             GlobalScope.launch {
                 PostApi.apiService.postValues(newPost)
-                val response = PostApi.apiService.postValues(newPost).body()
 
+                val response = PostApi.apiService.postValues(newPost).body()
                 Log.d(TAG, "Code: ${response?.id} response: $response ")
                 withContext(Dispatchers.Main) {
-                    //delay(3000)
-                    val postsLists = mutableListOf<Post>()
-                    postsLists.add(response!!)
-
-                    findNavController().previousBackStackEntry?.savedStateHandle?.set("response", postsLists)
+                    findNavController().previousBackStackEntry?.savedStateHandle?.set("response", mutableListOf(response))
                     donePosting()
                 }
-
             }
         }
         return binding.root
     }
 
     private fun donePosting() {
+        binding.pbPosting.visibility = View.GONE
         binding.edUserId.setText("")
         binding.edTitle.setText("")
         binding.edBody.setText("")

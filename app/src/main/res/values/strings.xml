@@ -6,4 +6,8 @@
     <string name="tv_user_id">UserId</string>
     <string name="tv_title">Title</string>
     <string name="tv_body">Body</string>
+    <string name="hint_body">Body</string>
+    <string name="btn_txt_post">POST</string>
+    <string name="hint_title">Title</string>
+    <string name="hint_user_id">UserId</string>
 </resources>

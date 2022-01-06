@@ -20,9 +20,9 @@ class PostAdapter:ListAdapter<Post,PostAdapter.PostViewHolder>(DiffItemCallback(
 
     class PostViewHolder(private val binding: PostItemBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind(post: Post?) {
-            binding.tvUserId.text = post?.userId.toString()
-            binding.tvtittle.text = post?.title
-            binding.tvbody.text = post?.body
+            binding.tvUserId.text = "UserId: ${ post?.userId.toString() }"
+            binding.tvtittle.text = "Title: ${ post?.title }"
+            binding.tvbody.text = "Body: \n${post?.body}"
         }
 
     }

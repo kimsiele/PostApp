@@ -21,12 +21,6 @@
         tools:layout="@layout/fragment_post_new" >
         <action
             android:id="@+id/action_postNew_to_postList"
-            app:destination="@id/postList" >
-            <argument android:name="id" app:argType="integer"/>
-            <argument android:name="userId" app:argType="integer"/>
-            <argument app:argType="string" android:name="title"/>
-            <argument android:name="body" app:argType="string"/>
-
-        </action>
+            app:destination="@id/postList"/>
     </fragment>
 </navigation>

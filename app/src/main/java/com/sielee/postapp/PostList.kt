@@ -1,6 +1,7 @@
 package com.sielee.postapp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ class PostList : Fragment() {
 
     lateinit var binding: FragmentPostListBinding
     private lateinit var postAdapter: PostAdapter
+    val TAG = "PostList"
 
     @DelicateCoroutinesApi
     override fun onCreateView(
@@ -22,39 +24,40 @@ class PostList : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentPostListBinding.inflate(inflater, container,false)
+        binding = FragmentPostListBinding.inflate(inflater, container, false)
         postAdapter = PostAdapter()
         binding.rvPosts.layoutManager = LinearLayoutManager(context)
         binding.rvPosts.adapter = postAdapter
 
-            GlobalScope.launch {
-                val posts = PostApi.apiService.getPosts()
-                withContext(Dispatchers.Main) {
-                    if (posts.isNotEmpty()) {
-                        binding.pbLoading.visibility = View.GONE
-                        postAdapter.submitList(posts)
-                    } else {
-                        Toast.makeText(context, "No post found", Toast.LENGTH_SHORT).show()
-                    }
+        findNavController().currentBackStackEntry?.savedStateHandle
+            ?.getLiveData<MutableList<Post>>("response")?.observe(viewLifecycleOwner) {
+                if (it.isNotEmpty()) {
+                    Toast.makeText(context, "New post", Toast.LENGTH_LONG).show()
+                    binding.pbLoading.visibility = View.GONE
+                    postAdapter.submitList(it)
+                    Log.d(TAG, "ResponseList: $it")
                 }
-
             }
-        /*if (requireArguments() == null){
-            Toast.makeText(context,"No arguments yet",Toast.LENGTH_SHORT).show()
-        }else {
-                val argument = requireArguments()
-                val newPost = Post(
-                    argument.getInt("userId"),
-                    argument.getString("title")!!,
-                    argument.getString("body")!!
-                )
-                val newPosts = listOf(newPost)
-                postAdapter.submitList(newPosts)
-            }*/
+        GlobalScope.launch {
+            val posts = PostApi.apiService.getPosts()
+            withContext(Dispatchers.Main) {
+                if (posts.isNotEmpty()) {
+                    binding.pbLoading.visibility = View.GONE
+                    if (postAdapter.currentList.isEmpty()) {
+                        postAdapter.submitList(posts)
+                        Toast.makeText(context, "Posts from api", Toast.LENGTH_LONG).show()
+                    }
+                } else {
+                    Toast.makeText(context, "No post yet!", Toast.LENGTH_LONG).show()
+                }
+            }
+
+        }
+
+
         binding.fbPostNew.setOnClickListener {
             this.findNavController().navigate(PostListDirections.actionPostListToPostNew())
         }
-
         return binding.root
     }
 

@@ -35,8 +35,12 @@ class PostNew : Fragment() {
 
                 Log.d(TAG, "Code: ${response?.id} response: $response ")
                 withContext(Dispatchers.Main) {
-                    delay(5000)
-                    donePosting(response?.id,response?.userId,response?.title,response?.body)
+                    //delay(3000)
+                    val postsLists = mutableListOf<Post>()
+                    postsLists.add(response!!)
+
+                    findNavController().previousBackStackEntry?.savedStateHandle?.set("response", postsLists)
+                    donePosting()
                 }
 
             }
@@ -44,10 +48,10 @@ class PostNew : Fragment() {
         return binding.root
     }
 
-    private fun donePosting(id: Int?, userId: Int?, title: String?, body: String?) {
+    private fun donePosting() {
         binding.edUserId.setText("")
         binding.edTitle.setText("")
         binding.edBody.setText("")
-        findNavController().navigate(PostNewDirections.actionPostNewToPostList(id!!,userId!!,title!!,body!!))
+        findNavController().popBackStack()
     }
 }

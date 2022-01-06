@@ -3,4 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_new_post">Add new post</string>
+    <string name="tv_user_id">UserId</string>
+    <string name="tv_title">Title</string>
+    <string name="tv_body">Body</string>
 </resources>
